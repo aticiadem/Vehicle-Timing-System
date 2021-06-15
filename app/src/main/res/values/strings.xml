@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AracZamanlamaSistemi</string>
+
+    <string name="past_uses">Geçmiş Kullanımlar</string>
+    <string name="total_usage">Toplam Kullanım: 0</string>
+    <string name="number_of_reset">Reset Sayısı: 0</string>
+    <string name="number_of_finish">Bitiş Sayısı: 0</string>
 </resources>
