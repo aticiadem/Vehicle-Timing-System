@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var vehicleAdapter: VehicleAdapter
     private lateinit var vehicleList: ArrayList<VehicleInfoModel>
-    private lateinit var gridLayoutManager: GridLayoutManager
+    //private lateinit var gridLayoutManager: GridLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
