@@ -1,11 +1,10 @@
 package com.zafertugcu.araczamanlamasistemi.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.zafertugcu.araczamanlamasistemi.model.VehicleInfoModel
 
+@Dao
 interface VehicleDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -13,5 +12,8 @@ interface VehicleDao {
 
     @Query("SELECT * FROM vehicle_table ORDER BY vehicleId ASC")
     fun readAllData(): LiveData<List<VehicleInfoModel>>
+
+    @Update
+    suspend fun updateVehicle(vehicle: VehicleInfoModel)
 
 }

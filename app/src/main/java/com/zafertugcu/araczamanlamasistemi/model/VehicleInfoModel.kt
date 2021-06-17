@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey
 data class VehicleInfoModel(
     @PrimaryKey(autoGenerate = true)
     val vehicleId: Int,
-    var vehicleNumber: Int,
-    var vehicleTime: Int
+    var vehicleName: String,
+    var vehicleMainTime: Int,
+    var vehicleTime: Int,
+    var vehicleIsStarted: Boolean = false
 )

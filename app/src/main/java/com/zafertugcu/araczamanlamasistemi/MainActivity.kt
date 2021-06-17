@@ -1,56 +1,112 @@
 package com.zafertugcu.araczamanlamasistemi
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.os.Handler
+import android.os.Looper
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.zafertugcu.araczamanlamasistemi.adapter.VehicleAdapter
 import com.zafertugcu.araczamanlamasistemi.databinding.ActivityMainBinding
+import com.zafertugcu.araczamanlamasistemi.databinding.DialogAddVehicleBinding
 import com.zafertugcu.araczamanlamasistemi.model.VehicleInfoModel
+import com.zafertugcu.araczamanlamasistemi.viewmodel.VehicleViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var vehicleAdapter: VehicleAdapter
-    private lateinit var vehicleList: ArrayList<VehicleInfoModel>
-    //private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var mVehicleViewModel: VehicleViewModel
+    private lateinit var adapter: VehicleAdapter
+    private var vehicleList = emptyList<VehicleInfoModel>()
+    var runnable: Runnable = Runnable {  }
+    var handler: Handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        vehicleList = ArrayList()
+        mVehicleViewModel = ViewModelProvider(this).get(VehicleViewModel::class.java)
 
-        val x = VehicleInfoModel(1,360)
-        val x1 = VehicleInfoModel(2,360)
-        val x2 = VehicleInfoModel(3,360)
-        val x3 = VehicleInfoModel(4,360)
-        val x4 = VehicleInfoModel(5,360)
-        val x5 = VehicleInfoModel(6,360)
-        val x6 = VehicleInfoModel(7,360)
-        val x7 = VehicleInfoModel(8,360)
-        val x8 = VehicleInfoModel(9,360)
-        val x9 = VehicleInfoModel(10,360)
+        adapter = VehicleAdapter(this, mVehicleViewModel)
+        binding.recyclerViewVehicleList.adapter = adapter
 
-        vehicleList.add(x)
-        vehicleList.add(x1)
-        vehicleList.add(x2)
-        vehicleList.add(x3)
-        vehicleList.add(x4)
-        vehicleList.add(x5)
-        vehicleList.add(x6)
-        vehicleList.add(x7)
-        vehicleList.add(x8)
-        vehicleList.add(x9)
+        mVehicleViewModel.readAllData.observe(this,  { vehicle ->
+            adapter.setData(vehicle)
+            vehicleList = vehicle
+        })
 
-        vehicleAdapter = VehicleAdapter(vehicleList)
+        runnable = object : Runnable{
+            override fun run() {
+                updateDataTime(vehicleList)
+                handler.postDelayed(this,1000)
+            }
+        }
+        handler.post(runnable)
 
-        //gridLayoutManager = GridLayoutManager(applicationContext,4, LinearLayoutManager.VERTICAL,false)
-        //binding.recyclerViewVehicleList?.layoutManager = gridLayoutManager
-        binding.recyclerViewVehicleList?.setHasFixedSize(true)
+    }
 
-        binding.recyclerViewVehicleList?.adapter = vehicleAdapter
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.vehicle_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.actionAddVehicle -> {
+                showAlertDialog()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showAlertDialog(){
+        val dialog = Dialog(this)
+        val dialogBinding = DialogAddVehicleBinding
+            .inflate(LayoutInflater.from(this))
+        dialog.setContentView(dialogBinding.root)
+        dialogBinding.buttonSaveVehicle.setOnClickListener {
+            val vehicleName = dialogBinding.editTextVehicleName.text
+            val vehicleTime = dialogBinding.editTextVehicleTime.text
+            if (vehicleName.isNotEmpty() && vehicleTime.isNotEmpty()){
+                insertDataToDatabase(vehicleName.toString(), vehicleTime.toString().toInt())
+                dialog.dismiss()
+            } else {
+                Toast.makeText(this,R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
+            }
+        }
+        dialog.show()
+    }
+
+    private fun insertDataToDatabase(vehicleName: String, vehicleTime: Int){
+        val vehicle = VehicleInfoModel(
+            0,
+            vehicleName,
+            vehicleTime,
+            vehicleTime
+        )
+        mVehicleViewModel.addVehicle(vehicle)
+        Toast.makeText(this,R.string.save_is_successful,Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateDataTime(vehicleList: List<VehicleInfoModel>){
+        for(list in vehicleList){
+            if(list.vehicleIsStarted && list.vehicleTime > 0){
+                val curretVehicle = VehicleInfoModel(
+                    list.vehicleId,
+                    list.vehicleName,
+                    list.vehicleMainTime,
+                    list.vehicleTime-1,
+                    list.vehicleIsStarted
+                )
+                mVehicleViewModel.updateVehicle(curretVehicle)
+            }
+        }
     }
 
 }

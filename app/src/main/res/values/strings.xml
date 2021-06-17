@@ -6,4 +6,14 @@
     <string name="number_of_reset">Reset Sayısı: 0</string>
     <string name="number_of_finish">Bitiş Sayısı: 0</string>
     <string name="add_vehicle">Araç Ekle</string>
+    <string name="vehicle_name">Araç Adı</string>
+    <string name="vehicle_start_time">Başlangıç Süresi</string>
+    <string name="save_vehicle">Aracı Kaydet</string>
+    <string name="save_changes">Değişiklikleri Kaydet</string>
+    <string name="finish">Bitir</string>
+    <string name="cancel">İptal</string>
+    <string name="start">Başlat</string>
+    <string name="reset">Reset</string>
+    <string name="fill_in_the_blanks">Boşlukları Doldurunuz!</string>
+    <string name="save_is_successful">Kayıt Başarılı.</string>
 </resources>

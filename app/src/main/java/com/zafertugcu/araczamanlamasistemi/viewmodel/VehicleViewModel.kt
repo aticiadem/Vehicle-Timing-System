@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class VehicleViewModel(application: Application): AndroidViewModel(application) {
 
-    private val readAllData: LiveData<List<VehicleInfoModel>>
+    val readAllData: LiveData<List<VehicleInfoModel>>
     private val repository: VehicleRepository
 
     init {
@@ -24,6 +24,12 @@ class VehicleViewModel(application: Application): AndroidViewModel(application) 
     fun addVehicle(vehicle: VehicleInfoModel){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addVehicle(vehicle)
+        }
+    }
+
+    fun updateVehicle(vehicle: VehicleInfoModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateVehicle(vehicle)
         }
     }
 
