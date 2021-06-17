@@ -27,4 +27,10 @@ class PastUsesViewModel(application: Application): AndroidViewModel(application)
         }
     }
 
+    fun deletePastUses(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deletePastUses()
+        }
+    }
+
 }

@@ -8,7 +8,6 @@ data class PastUsesModel(
     @PrimaryKey(autoGenerate = true)
     val pastId: Int,
     val pastDate: String,
-    val pastTime: String,
     val pastVehicleName: String,
     val pastState: Int
 )

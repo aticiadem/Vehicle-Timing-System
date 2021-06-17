@@ -11,4 +11,8 @@ class PastUsesRepository(private val pastUsesDao: PastUsesDao) {
         pastUsesDao.addPastUse(pastUses)
     }
 
+    suspend fun deletePastUses(){
+        pastUsesDao.deletePastUses()
+    }
+
 }

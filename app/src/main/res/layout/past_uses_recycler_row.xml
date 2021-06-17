@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/textViewDate"
-        android:layout_width="110dp"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:textSize="20sp"
@@ -19,10 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewTime"
-        android:layout_width="80dp"
+        android:id="@+id/textViewVehicleName"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
+        android:layout_marginStart="320dp"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewDate"
@@ -30,21 +30,10 @@
         app:layout_constraintTop_toTopOf="@+id/textViewDate" />
 
     <TextView
-        android:id="@+id/textViewVehicleName"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="330dp"
-        android:textAlignment="textStart"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewTime"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewTime" />
-
-    <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewState"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="520dp"
+        android:layout_marginStart="500dp"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewVehicleName"

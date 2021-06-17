@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/gray_light"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -63,7 +64,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="@string/total_usage"
                 android:textSize="20sp"/>
 
             <TextView
@@ -72,7 +72,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
-                android:text="@string/number_of_reset"
                 android:textSize="20sp"/>
 
             <TextView
@@ -81,10 +80,18 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
-                android:text="@string/number_of_finish"
                 android:textSize="20sp"/>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonClearPast"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:textSize="18sp"
+            android:layout_marginBottom="20dp"
+            android:textAllCaps="false"
+            android:text="@string/delete_past"/>
 
     </LinearLayout>
 

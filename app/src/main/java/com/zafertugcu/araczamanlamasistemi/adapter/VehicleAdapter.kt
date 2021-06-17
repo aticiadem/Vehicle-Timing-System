@@ -2,6 +2,7 @@ package com.zafertugcu.araczamanlamasistemi.adapter
 
 import android.app.Dialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -9,17 +10,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zafertugcu.araczamanlamasistemi.R
 import com.zafertugcu.araczamanlamasistemi.databinding.DialogVehicleDetailBinding
 import com.zafertugcu.araczamanlamasistemi.databinding.VehicleRecyclerRowBinding
+import com.zafertugcu.araczamanlamasistemi.model.PastUsesModel
 import com.zafertugcu.araczamanlamasistemi.model.VehicleInfoModel
+import com.zafertugcu.araczamanlamasistemi.viewmodel.PastUsesViewModel
 import com.zafertugcu.araczamanlamasistemi.viewmodel.VehicleViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
-class VehicleAdapter(private val context: Context,
-                     private val mVehicleViewModel: com.zafertugcu.araczamanlamasistemi.viewmodel.VehicleViewModel)
-    : RecyclerView.Adapter<VehicleAdapter.VehicleViewModel>() {
+class VehicleAdapter(
+    private val context: Context,
+    private val sharedPref: SharedPreferences,
+    private val mVehicleViewModel: com.zafertugcu.araczamanlamasistemi.viewmodel.VehicleViewModel,
+    private val mPastUsesViewModel: PastUsesViewModel
+): RecyclerView.Adapter<VehicleAdapter.VehicleViewModel>() {
 
     private var vehicleList = emptyList<VehicleInfoModel>()
 
     inner class VehicleViewModel(val itemBinding: VehicleRecyclerRowBinding)
-        : RecyclerView.ViewHolder(itemBinding.root)
+        :RecyclerView.ViewHolder(itemBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehicleViewModel {
         val binding = VehicleRecyclerRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -59,6 +67,10 @@ class VehicleAdapter(private val context: Context,
     }
 
     private fun showAlertDialog(currentData: VehicleInfoModel){
+
+        val date = getCurrentDateTime()
+        val dateInString = date.toString("dd/MM/yyyy  -  HH:mm:ss")
+
         val dialog = Dialog(context)
         val dialogBinding = DialogVehicleDetailBinding
             .inflate(LayoutInflater.from(context))
@@ -77,6 +89,13 @@ class VehicleAdapter(private val context: Context,
         }
 
         dialogBinding.buttonFinish.setOnClickListener {
+            val pastUse = PastUsesModel(
+                0,
+                dateInString,
+                currentData.vehicleName,
+                0
+            )
+            mPastUsesViewModel.addPastUse(pastUse)
             val newData = VehicleInfoModel(
                 currentData.vehicleId,
                 currentData.vehicleName,
@@ -85,10 +104,24 @@ class VehicleAdapter(private val context: Context,
                 false
             )
             mVehicleViewModel.updateVehicle(newData)
+
+            val oldValue = sharedPref.getInt("finished",0)
+            val newValue = oldValue + 1
+            val editor = sharedPref.edit()
+            editor.putInt("finished",newValue)
+            editor.apply()
+
             dialog.dismiss()
         }
 
         dialogBinding.buttonReset.setOnClickListener {
+            val pastUse = PastUsesModel(
+                0,
+                dateInString,
+                currentData.vehicleName,
+                1
+            )
+            mPastUsesViewModel.addPastUse(pastUse)
             val newData = VehicleInfoModel(
                 currentData.vehicleId,
                 currentData.vehicleName,
@@ -97,6 +130,13 @@ class VehicleAdapter(private val context: Context,
                 false
             )
             mVehicleViewModel.updateVehicle(newData)
+
+            val oldValue = sharedPref.getInt("reseted",0)
+            val newValue = oldValue + 1
+            val editor = sharedPref.edit()
+            editor.putInt("reseted",newValue)
+            editor.apply()
+
             dialog.dismiss()
         }
 
@@ -105,6 +145,15 @@ class VehicleAdapter(private val context: Context,
         }
 
         dialog.show()
+    }
+
+    private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format,locale)
+        return formatter.format(this)
+    }
+
+    private fun getCurrentDateTime(): Date{
+        return Calendar.getInstance().time
     }
 
 }

@@ -13,4 +13,7 @@ interface PastUsesDao {
     @Query("SELECT * FROM past_uses_table ORDER BY pastId DESC")
     fun readAllData(): LiveData<List<PastUsesModel>>
 
+    @Query("DELETE FROM past_uses_table")
+    suspend fun deletePastUses()
+
 }

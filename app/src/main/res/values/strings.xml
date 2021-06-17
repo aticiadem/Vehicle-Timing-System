@@ -2,9 +2,9 @@
     <string name="app_name">AracZamanlamaSistemi</string>
 
     <string name="past_uses">Geçmiş Kullanımlar</string>
-    <string name="total_usage">Toplam Kullanım: 0</string>
-    <string name="number_of_reset">Reset Sayısı: 0</string>
-    <string name="number_of_finish">Bitiş Sayısı: 0</string>
+    <string name="total_usage">Toplam Kullanım: </string>
+    <string name="number_of_reset">Reset Sayısı: </string>
+    <string name="number_of_finish">Bitiş Sayısı: </string>
     <string name="add_vehicle">Araç Ekle</string>
     <string name="vehicle_name">Araç Adı</string>
     <string name="vehicle_start_time">Başlangıç Süresi</string>
@@ -14,6 +14,14 @@
     <string name="cancel">İptal</string>
     <string name="start">Başlat</string>
     <string name="reset">Reset</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="delete_past">Geçmişi Temizle</string>
+    <string name="past_deleted">Geçmiş Temizlendi!</string>
+    <string name="are_you_sure_delete_past">Geçmişteki Verileri Silmek İstediğinize Emin Misiniz?</string>
     <string name="fill_in_the_blanks">Boşlukları Doldurunuz!</string>
     <string name="save_is_successful">Kayıt Başarılı.</string>
+    <string name="finished">Bitirildi</string>
+    <string name="reseted">Resetlendi</string>
+    <string name="past_shared">past_shared_preferences</string>
 </resources>
