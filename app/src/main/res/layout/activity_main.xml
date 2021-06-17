@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/gray_light"
         android:gravity="center_horizontal"
         tools:context=".MainActivity">
 
@@ -32,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:textColor="@color/black"
             android:text="@string/past_uses"
             android:textSize="24sp"/>
 
@@ -60,6 +62,7 @@
                 android:id="@+id/textViewTotalUsage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="@string/total_usage"
                 android:textSize="20sp"/>
 
@@ -67,6 +70,7 @@
                 android:id="@+id/textViewNumberOfReset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:text="@string/number_of_reset"
                 android:textSize="20sp"/>
@@ -75,6 +79,7 @@
                 android:id="@+id/textViewNumberOfFinish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:text="@string/number_of_finish"
                 android:textSize="20sp"/>

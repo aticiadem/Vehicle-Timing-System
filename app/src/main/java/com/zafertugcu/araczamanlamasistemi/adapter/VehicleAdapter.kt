@@ -32,20 +32,21 @@ class VehicleAdapter(private val context: Context,
         holder.itemBinding.textViewTime.text = currentItem.vehicleTime.toString()
 
         when (currentItem.vehicleTime) {
-            in 0..149 -> {
-                holder.itemBinding.linearLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.red))
+            in 0..89 -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red))
             }
-            in 150..280 -> {
-                holder.itemBinding.linearLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.yellow))
+            in 90..180 -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow))
             }
             else -> {
-                holder.itemBinding.linearLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.green))
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.green))
             }
         }
 
-        holder.itemBinding.linearLayout.setOnClickListener{
+        holder.itemBinding.cardView.setOnClickListener{
             showAlertDialog(currentItem)
         }
+
     }
 
     override fun getItemCount(): Int {
