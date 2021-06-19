@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
     app:cardCornerRadius="20dp"
-    android:layout_margin="10dp"
+    android:layout_margin="20dp"
     android:layout_width="180dp"
     android:layout_height="180dp">
 

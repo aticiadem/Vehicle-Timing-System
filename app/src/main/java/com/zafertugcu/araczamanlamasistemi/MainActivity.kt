@@ -13,7 +13,9 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zafertugcu.araczamanlamasistemi.adapter.PastUsesAdapter
 import com.zafertugcu.araczamanlamasistemi.adapter.VehicleAdapter
 import com.zafertugcu.araczamanlamasistemi.databinding.ActivityMainBinding
@@ -147,14 +149,17 @@ class MainActivity : AppCompatActivity() {
     private fun updateDataTime(vehicleList: List<VehicleInfoModel>){
         for(list in vehicleList){
             if(list.vehicleIsStarted && list.vehicleTime > 0){
-                val curretVehicle = VehicleInfoModel(
+                val currentVehicle = VehicleInfoModel(
                     list.vehicleId,
                     list.vehicleName,
                     list.vehicleMainTime,
                     list.vehicleTime-1,
                     list.vehicleIsStarted
                 )
-                mVehicleViewModel.updateVehicle(curretVehicle)
+                mVehicleViewModel.updateVehicle(currentVehicle)
+            }
+            if(list.vehicleIsStarted && list.vehicleTime == 0){
+                Toast.makeText(this,"Yanip Son",Toast.LENGTH_SHORT).show()
             }
         }
     }

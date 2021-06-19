@@ -10,10 +10,10 @@
     <string name="vehicle_start_time">Başlangıç Süresi</string>
     <string name="save_vehicle">Aracı Kaydet</string>
     <string name="save_changes">Değişiklikleri Kaydet</string>
-    <string name="finish">Bitir</string>
-    <string name="cancel">İptal</string>
-    <string name="start">Başlat</string>
-    <string name="reset">Reset</string>
+    <string name="finish">BİTİR</string>
+    <string name="cancel">İPTAL</string>
+    <string name="start">BAŞLAT</string>
+    <string name="reset">RESET</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="delete_past">Geçmişi Temizle</string>

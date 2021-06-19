@@ -17,23 +17,20 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewVehicleList"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="4"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp" />
 
         <TextView
             android:id="@+id/textViewPastUses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:textColor="@color/black"
             android:text="@string/past_uses"
             android:textSize="24sp"/>
 
@@ -62,6 +59,7 @@
                 android:id="@+id/textViewTotalUsage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="@string/total_usage"
                 android:textSize="20sp"/>
 
@@ -70,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/black"
                 android:text="@string/number_of_reset"
                 android:textSize="20sp"/>
 
@@ -78,6 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/black"
                 android:text="@string/number_of_finish"
                 android:textSize="20sp"/>
 
@@ -85,10 +85,11 @@
 
         <Button
             android:id="@+id/buttonClearPast"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_height="60dp"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/button_background"
             android:textAllCaps="false"
             android:text="@string/delete_past"/>
 

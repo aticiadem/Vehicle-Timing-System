@@ -40,11 +40,29 @@ class VehicleAdapter(
         holder.itemBinding.textViewTime.text = currentItem.vehicleTime.toString()
 
         when (currentItem.vehicleTime) {
-            in 0..89 -> {
+            in 0..50 -> {
                 holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red))
             }
-            in 90..180 -> {
+            in 51..100 -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red_yellow))
+            }
+            in 101..150 -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red_yellow2))
+            }
+            in 151..200 -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red_yellow3))
+            }
+            in 201..250 -> {
                 holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow))
+            }
+            in 251..300 -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow_green))
+            }
+            in 301..350 -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow_green2))
+            }
+            in 351..400 -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow_green3))
             }
             else -> {
                 holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.green))
