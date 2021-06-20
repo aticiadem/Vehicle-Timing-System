@@ -19,7 +19,7 @@
         android:textColor="@color/black"
         android:background="@drawable/edit_text_background"
         android:autofillHints="false"
-        android:inputType="text|number" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextDetailVehicleStartTime"

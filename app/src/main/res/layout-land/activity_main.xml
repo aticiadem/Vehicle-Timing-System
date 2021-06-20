@@ -13,7 +13,7 @@
         android:background="@color/gray_light"
         android:orientation="vertical"
         android:gravity="center"
-        tools:context=".MainActivity">
+        tools:context=".view.MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewVehicleList"

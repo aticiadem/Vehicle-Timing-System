@@ -1,4 +1,4 @@
-package com.zafertugcu.araczamanlamasistemi
+package com.zafertugcu.araczamanlamasistemi.view
 
 import android.app.Dialog
 import android.content.Context
@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zafertugcu.araczamanlamasistemi.R
 import com.zafertugcu.araczamanlamasistemi.adapter.PastUsesAdapter
 import com.zafertugcu.araczamanlamasistemi.adapter.VehicleAdapter
 import com.zafertugcu.araczamanlamasistemi.databinding.ActivityMainBinding
@@ -101,15 +102,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun deletePast(){
         val builder = AlertDialog.Builder(this)
-        builder.setPositiveButton(R.string.yes){ _,_ ->
+        builder.setPositiveButton(R.string.yes){ _, _ ->
             mPastUsesViewModel.deletePastUses()
             val editor = sharedPref.edit()
             editor.putInt("finished",0)
             editor.putInt("reseted",0)
             editor.apply()
-            Toast.makeText(this,R.string.past_deleted,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.past_deleted,Toast.LENGTH_SHORT).show()
         }
-        builder.setNegativeButton(R.string.no){ _,_ -> }
+        builder.setNegativeButton(R.string.no){ _, _ -> }
         builder.setTitle(R.string.delete_past)
         builder.setMessage(R.string.are_you_sure_delete_past)
         builder.create().show()
@@ -127,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                 insertDataToDatabase(vehicleName.toString(), vehicleTime.toString().toInt())
                 dialog.dismiss()
             } else {
-                Toast.makeText(this,R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
             }
         }
         dialog.show()
@@ -141,7 +142,7 @@ class MainActivity : AppCompatActivity() {
             vehicleTime
         )
         mVehicleViewModel.addVehicle(vehicle)
-        Toast.makeText(this,R.string.save_is_successful,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.save_is_successful,Toast.LENGTH_SHORT).show()
     }
 
     private fun updateDataTime(vehicleList: List<VehicleInfoModel>){
