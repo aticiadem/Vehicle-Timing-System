@@ -15,4 +15,8 @@ class VehicleRepository(private val vehicleDao: VehicleDao) {
         vehicleDao.updateVehicle(vehicle)
     }
 
+    suspend fun deleteVehicle(vehicle: VehicleInfoModel){
+        vehicleDao.deleteVehicle(vehicle)
+    }
+
 }

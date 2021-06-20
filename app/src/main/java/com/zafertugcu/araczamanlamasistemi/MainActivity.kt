@@ -13,9 +13,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.zafertugcu.araczamanlamasistemi.adapter.PastUsesAdapter
 import com.zafertugcu.araczamanlamasistemi.adapter.VehicleAdapter
 import com.zafertugcu.araczamanlamasistemi.databinding.ActivityMainBinding

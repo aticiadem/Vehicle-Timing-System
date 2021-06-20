@@ -9,6 +9,7 @@
     <string name="vehicle_name">Araç Adı</string>
     <string name="vehicle_start_time">Başlangıç Süresi</string>
     <string name="save_vehicle">Aracı Kaydet</string>
+    <string name="save_detail_changes">DEĞİŞİKLİKLERİ KAYDET</string>
     <string name="save_changes">Değişiklikleri Kaydet</string>
     <string name="finish">BİTİR</string>
     <string name="go_to_detail">DETAYA GİT</string>
@@ -20,9 +21,14 @@
     <string name="past_deleted">Geçmiş Temizlendi!</string>
     <string name="are_you_sure_delete_past">Geçmişteki Verileri Silmek İstediğinize Emin Misiniz?</string>
     <string name="fill_in_the_blanks">Boşlukları Doldurunuz!</string>
+    <string name="save_changes_error">Girdiler Aynı Olamaz!</string>
     <string name="save_is_successful">Kayıt Başarılı.</string>
+    <string name="changes_is_successful">Değişiklikler Kaydedildi.</string>
     <string name="finished">Bitirildi</string>
     <string name="reseted">Resetlendi</string>
     <string name="past_shared">past_shared_preferences</string>
     <string name="data_is_not_started">Önce aracı başlatınız!</string>
+    <string name="delete_vehicle">ARACI SİL</string>
+    <string name="vehicle_is_deleted">Araç Silindi.</string>
+    <string name="are_you_sure_delete_vehicle">Aracı Silmek İstediğinizden Emin Misiniz?</string>
 </resources>

@@ -6,10 +6,12 @@ import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zafertugcu.araczamanlamasistemi.R
+import com.zafertugcu.araczamanlamasistemi.databinding.DialogVehicleClickBinding
 import com.zafertugcu.araczamanlamasistemi.databinding.DialogVehicleDetailBinding
 import com.zafertugcu.araczamanlamasistemi.databinding.VehicleRecyclerRowBinding
 import com.zafertugcu.araczamanlamasistemi.model.PastUsesModel
@@ -89,12 +91,11 @@ class VehicleAdapter(
     }
 
     private fun showAlertDialog(currentData: VehicleInfoModel){
-
         val date = getCurrentDateTime()
         val dateInString = date.toString("dd/MM/yyyy  -  HH:mm:ss")
 
         val dialog = Dialog(context)
-        val dialogBinding = DialogVehicleDetailBinding
+        val dialogBinding = DialogVehicleClickBinding
             .inflate(LayoutInflater.from(context))
         dialog.setContentView(dialogBinding.root)
 
@@ -175,10 +176,63 @@ class VehicleAdapter(
         }
 
         dialogBinding.buttonGoDetail.setOnClickListener {
-
+            dialog.dismiss()
+            showDetailDialog(currentData)
         }
 
         dialog.show()
+    }
+
+    private fun showDetailDialog(currentData: VehicleInfoModel){
+        val dialog = Dialog(context)
+        val dialogBinding = DialogVehicleDetailBinding
+            .inflate(LayoutInflater.from(context))
+        dialog.setContentView(dialogBinding.root)
+
+        dialogBinding.editTextDetailVehicleName.setText(currentData.vehicleName)
+        dialogBinding.editTextDetailVehicleStartTime.setText(currentData.vehicleMainTime.toString())
+
+        dialogBinding.buttonSaveChanges.setOnClickListener {
+            val vehicleName = dialogBinding.editTextDetailVehicleName.text.toString()
+            val startTime = dialogBinding.editTextDetailVehicleStartTime.text.toString()
+
+            if((vehicleName == currentData.vehicleName) &&
+                startTime == currentData.vehicleMainTime.toString()){
+                Toast.makeText(context,R.string.save_changes_error,Toast.LENGTH_SHORT).show()
+            } else {
+                val newData = VehicleInfoModel(
+                    currentData.vehicleId,
+                    vehicleName,
+                    startTime.toInt(),
+                    startTime.toInt(),
+                    currentData.vehicleIsStarted,
+                    currentData.vehicleIsFinished
+                )
+                mVehicleViewModel.updateVehicle(newData)
+                Toast.makeText(context,R.string.changes_is_successful,Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+        }
+
+        dialogBinding.buttonDeleteVehicle.setOnClickListener {
+            dialog.dismiss()
+            deleteVehicle(currentData)
+        }
+
+        dialog.show()
+    }
+
+    private fun deleteVehicle(currentData: VehicleInfoModel){
+        val builder = AlertDialog.Builder(context)
+        builder.setPositiveButton(R.string.yes){ _,_ ->
+            mVehicleViewModel.deleteVehicle(currentData)
+            Toast.makeText(context,R.string.vehicle_is_deleted,Toast.LENGTH_SHORT).show()
+
+        }
+        builder.setNegativeButton(R.string.no){ _,_ -> }
+        builder.setMessage(R.string.are_you_sure_delete_vehicle)
+        builder.setTitle(R.string.delete_vehicle)
+        builder.create().show()
     }
 
     private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {

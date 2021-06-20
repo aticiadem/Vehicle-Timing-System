@@ -33,4 +33,10 @@ class VehicleViewModel(application: Application): AndroidViewModel(application) 
         }
     }
 
+    fun deleteVehicle(vehicle: VehicleInfoModel){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteVehicle(vehicle)
+        }
+    }
+
 }

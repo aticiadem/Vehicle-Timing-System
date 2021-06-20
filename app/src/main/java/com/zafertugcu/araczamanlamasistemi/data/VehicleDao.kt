@@ -16,4 +16,7 @@ interface VehicleDao {
     @Update
     suspend fun updateVehicle(vehicle: VehicleInfoModel)
 
+    @Delete
+    suspend fun deleteVehicle(vehicle: VehicleInfoModel)
+
 }
