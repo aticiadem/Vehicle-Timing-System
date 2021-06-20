@@ -47,7 +47,7 @@
         android:text="@string/reset" />
 
     <Button
-        android:id="@+id/buttonCancel"
+        android:id="@+id/buttonGoDetail"
         android:layout_width="240dp"
         android:layout_height="50dp"
         android:background="@drawable/button_background"
@@ -57,6 +57,6 @@
         android:layout_marginEnd="40dp"
         android:textAllCaps="false"
         android:textSize="16sp"
-        android:text="@string/cancel" />
+        android:text="@string/go_to_detail" />
 
 </LinearLayout>

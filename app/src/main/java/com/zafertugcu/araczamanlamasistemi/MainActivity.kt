@@ -154,12 +154,43 @@ class MainActivity : AppCompatActivity() {
                     list.vehicleName,
                     list.vehicleMainTime,
                     list.vehicleTime-1,
-                    list.vehicleIsStarted
+                    list.vehicleIsStarted,
+                    2
                 )
                 mVehicleViewModel.updateVehicle(currentVehicle)
             }
-            if(list.vehicleIsStarted && list.vehicleTime == 0){
-                Toast.makeText(this,"Yanip Son",Toast.LENGTH_SHORT).show()
+            if(list.vehicleIsStarted && list.vehicleTime == 0 && list.vehicleIsFinished == 2){
+                val vehicle = VehicleInfoModel(
+                    list.vehicleId,
+                    list.vehicleName,
+                    list.vehicleMainTime,
+                    list.vehicleTime,
+                    list.vehicleIsStarted,
+                    1
+                )
+                mVehicleViewModel.updateVehicle(vehicle)
+            }
+            if(list.vehicleIsStarted && list.vehicleTime == 0 && list.vehicleIsFinished == 1){
+                val vehicle = VehicleInfoModel(
+                    list.vehicleId,
+                    list.vehicleName,
+                    list.vehicleMainTime,
+                    list.vehicleTime,
+                    list.vehicleIsStarted,
+                    0
+                )
+                mVehicleViewModel.updateVehicle(vehicle)
+            }
+            if(list.vehicleIsStarted && list.vehicleTime == 0 && list.vehicleIsFinished == 0){
+                val vehicle = VehicleInfoModel(
+                    list.vehicleId,
+                    list.vehicleName,
+                    list.vehicleMainTime,
+                    list.vehicleTime,
+                    list.vehicleIsStarted,
+                    1
+                )
+                mVehicleViewModel.updateVehicle(vehicle)
             }
         }
     }

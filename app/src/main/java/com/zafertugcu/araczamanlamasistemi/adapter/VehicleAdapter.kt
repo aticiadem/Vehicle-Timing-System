@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zafertugcu.araczamanlamasistemi.R
@@ -69,6 +71,8 @@ class VehicleAdapter(
             }
         }
 
+        changeColor(currentItem.vehicleIsFinished, holder.itemBinding.cardView)
+
         holder.itemBinding.cardView.setOnClickListener{
             showAlertDialog(currentItem)
         }
@@ -100,66 +104,78 @@ class VehicleAdapter(
                 currentData.vehicleName,
                 currentData.vehicleMainTime,
                 currentData.vehicleTime,
-                true
+                true,
+                currentData.vehicleIsFinished
             )
             mVehicleViewModel.updateVehicle(newData)
             dialog.dismiss()
         }
 
         dialogBinding.buttonFinish.setOnClickListener {
-            val pastUse = PastUsesModel(
-                0,
-                dateInString,
-                currentData.vehicleName,
-                0
-            )
-            mPastUsesViewModel.addPastUse(pastUse)
-            val newData = VehicleInfoModel(
-                currentData.vehicleId,
-                currentData.vehicleName,
-                currentData.vehicleMainTime,
-                currentData.vehicleMainTime,
-                false
-            )
-            mVehicleViewModel.updateVehicle(newData)
+            if(currentData.vehicleMainTime != currentData.vehicleTime){
+                val pastUse = PastUsesModel(
+                    0,
+                    dateInString,
+                    currentData.vehicleName,
+                    0
+                )
+                mPastUsesViewModel.addPastUse(pastUse)
+                val newData = VehicleInfoModel(
+                    currentData.vehicleId,
+                    currentData.vehicleName,
+                    currentData.vehicleMainTime,
+                    currentData.vehicleMainTime,
+                    false,
+                    2
+                )
+                mVehicleViewModel.updateVehicle(newData)
 
-            val oldValue = sharedPref.getInt("finished",0)
-            val newValue = oldValue + 1
-            val editor = sharedPref.edit()
-            editor.putInt("finished",newValue)
-            editor.apply()
+                val oldValue = sharedPref.getInt("finished",0)
+                val newValue = oldValue + 1
+                val editor = sharedPref.edit()
+                editor.putInt("finished",newValue)
+                editor.apply()
 
-            dialog.dismiss()
+                dialog.dismiss()
+            } else {
+                Toast.makeText(context,R.string.data_is_not_started,Toast.LENGTH_SHORT).show()
+            }
         }
 
         dialogBinding.buttonReset.setOnClickListener {
-            val pastUse = PastUsesModel(
-                0,
-                dateInString,
-                currentData.vehicleName,
-                1
-            )
-            mPastUsesViewModel.addPastUse(pastUse)
-            val newData = VehicleInfoModel(
-                currentData.vehicleId,
-                currentData.vehicleName,
-                currentData.vehicleMainTime,
-                currentData.vehicleMainTime,
-                false
-            )
-            mVehicleViewModel.updateVehicle(newData)
+            if(currentData.vehicleMainTime != currentData.vehicleTime){
+                val pastUse = PastUsesModel(
+                    0,
+                    dateInString,
+                    currentData.vehicleName,
+                    1
+                )
+                mPastUsesViewModel.addPastUse(pastUse)
+                val newData = VehicleInfoModel(
+                    currentData.vehicleId,
+                    currentData.vehicleName,
+                    currentData.vehicleMainTime,
+                    currentData.vehicleMainTime,
+                    false,
+                    2
+                )
+                mVehicleViewModel.updateVehicle(newData)
 
-            val oldValue = sharedPref.getInt("reseted",0)
-            val newValue = oldValue + 1
-            val editor = sharedPref.edit()
-            editor.putInt("reseted",newValue)
-            editor.apply()
+                val oldValue = sharedPref.getInt("reseted",0)
+                val newValue = oldValue + 1
+                val editor = sharedPref.edit()
+                editor.putInt("reseted",newValue)
+                editor.apply()
 
-            dialog.dismiss()
+                dialog.dismiss()
+                dialog.dismiss()
+            } else {
+                Toast.makeText(context,R.string.data_is_not_started,Toast.LENGTH_SHORT).show()
+            }
         }
 
-        dialogBinding.buttonCancel.setOnClickListener {
-            dialog.dismiss()
+        dialogBinding.buttonGoDetail.setOnClickListener {
+
         }
 
         dialog.show()
@@ -172,6 +188,14 @@ class VehicleAdapter(
 
     private fun getCurrentDateTime(): Date{
         return Calendar.getInstance().time
+    }
+
+    private fun changeColor(vehicleIsFinished: Int, currentCardView: CardView){
+        if(vehicleIsFinished == 1){
+            currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.black))
+        } else if(vehicleIsFinished == 0){
+            currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red))
+        }
     }
 
 }
