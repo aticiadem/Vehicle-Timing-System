@@ -1,13 +1,17 @@
-package com.zafertugcu.araczamanlamasistemi.view
+package com.zafertugcu.araczamanlamasistemi.view.fragment
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.zafertugcu.araczamanlamasistemi.databinding.FragmentUserBinding
 import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -23,9 +27,10 @@ import com.zafertugcu.araczamanlamasistemi.model.VehicleInfoModel
 import com.zafertugcu.araczamanlamasistemi.viewmodel.PastUsesViewModel
 import com.zafertugcu.araczamanlamasistemi.viewmodel.VehicleViewModel
 
-class MainActivity : AppCompatActivity() {
+class UserFragment : Fragment() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var _binding: FragmentUserBinding? = null
+    private val binding get() = _binding!!
     private lateinit var mVehicleViewModel: VehicleViewModel
     private lateinit var mPastUsesViewModel: PastUsesViewModel
     private lateinit var vehicleAdapter: VehicleAdapter
@@ -35,28 +40,35 @@ class MainActivity : AppCompatActivity() {
     private var runnable: Runnable = Runnable {  }
     var handler: Handler = Handler(Looper.getMainLooper())
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentUserBinding.inflate(inflater, container,false)
+        val view = binding.root
+        return view
+    }
 
-        sharedPref = this.getSharedPreferences(getString(R.string.past_shared), Context.MODE_PRIVATE)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        mVehicleViewModel = ViewModelProvider(this).get(VehicleViewModel::class.java)
-        mPastUsesViewModel = ViewModelProvider(this).get(PastUsesViewModel::class.java)
+        sharedPref = requireActivity().getSharedPreferences(getString(R.string.past_shared), Context.MODE_PRIVATE)
 
-        vehicleAdapter = VehicleAdapter(this, sharedPref, mVehicleViewModel, mPastUsesViewModel)
-        pastUsesAdapter = PastUsesAdapter(this)
+        mVehicleViewModel = ViewModelProvider(requireActivity()).get(VehicleViewModel::class.java)
+        mPastUsesViewModel = ViewModelProvider(requireActivity()).get(PastUsesViewModel::class.java)
+
+        vehicleAdapter = VehicleAdapter(requireContext(), sharedPref, mVehicleViewModel, mPastUsesViewModel)
+        pastUsesAdapter = PastUsesAdapter(requireContext())
         binding.recyclerViewVehicleList.adapter = vehicleAdapter
-        binding.recyclerViewPastUses.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewPastUses.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewPastUses.adapter = pastUsesAdapter
 
-        mVehicleViewModel.readAllData.observe(this, { vehicle ->
+        mVehicleViewModel.readAllData.observe(requireActivity(), { vehicle ->
             vehicleAdapter.setData(vehicle)
             vehicleList = vehicle
         })
 
-        mPastUsesViewModel.readAllData.observe(this, { pastUses ->
+        mPastUsesViewModel.readAllData.observe(requireActivity(), { pastUses ->
             pastUsesAdapter.setData(pastUses)
         })
 
@@ -71,9 +83,9 @@ class MainActivity : AppCompatActivity() {
                 val finishedCount = sharedPref.getInt("finished",0)
                 val resetedCount = sharedPref.getInt("reseted",0)
 
-                val finished = getString(R.string.number_of_finish) + finishedCount.toString()
-                val reseted = getString(R.string.number_of_reset) + resetedCount.toString()
-                val total = getString(R.string.total_usage) + (finishedCount + resetedCount).toString()
+                val finished = "Bitiş Sayısı: $finishedCount"
+                val reseted = "Reset Sayısı: $resetedCount"
+                val total = "Toplam Kullanım: ${(finishedCount + resetedCount)}"
 
                 binding.textViewNumberOfFinish.text = finished
                 binding.textViewNumberOfReset.text = reseted
@@ -86,29 +98,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.vehicle_menu,menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.actionAddVehicle -> {
-                showAlertDialog()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun deletePast(){
-        val builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(R.string.yes){ _, _ ->
             mPastUsesViewModel.deletePastUses()
             val editor = sharedPref.edit()
             editor.putInt("finished",0)
             editor.putInt("reseted",0)
             editor.apply()
-            Toast.makeText(this, R.string.past_deleted,Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), R.string.past_deleted,Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton(R.string.no){ _, _ -> }
         builder.setTitle(R.string.delete_past)
@@ -116,10 +114,10 @@ class MainActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    private fun showAlertDialog(){
-        val dialog = Dialog(this)
+    /*private fun showAlertDialog(){
+        val dialog = Dialog(requireContext())
         val dialogBinding = DialogAddVehicleBinding
-            .inflate(LayoutInflater.from(this))
+            .inflate(LayoutInflater.from(requireContext()))
         dialog.setContentView(dialogBinding.root)
         dialogBinding.buttonSaveVehicle.setOnClickListener {
             val vehicleName = dialogBinding.editTextVehicleName.text
@@ -128,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                 insertDataToDatabase(vehicleName.toString(), vehicleTime.toString().toInt())
                 dialog.dismiss()
             } else {
-                Toast.makeText(this, R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
             }
         }
         dialog.show()
@@ -142,8 +140,8 @@ class MainActivity : AppCompatActivity() {
             vehicleTime
         )
         mVehicleViewModel.addVehicle(vehicle)
-        Toast.makeText(this, R.string.save_is_successful,Toast.LENGTH_SHORT).show()
-    }
+        Toast.makeText(requireContext(), R.string.save_is_successful,Toast.LENGTH_SHORT).show()
+    }*/
 
     private fun updateDataTime(vehicleList: List<VehicleInfoModel>){
         for(list in vehicleList){
@@ -192,6 +190,12 @@ class MainActivity : AppCompatActivity() {
                 mVehicleViewModel.updateVehicle(vehicle)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        handler.removeCallbacks(runnable)
+        _binding = null
     }
 
 }

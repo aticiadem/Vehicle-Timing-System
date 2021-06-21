@@ -31,4 +31,7 @@
     <string name="delete_vehicle">ARACI SİL</string>
     <string name="vehicle_is_deleted">Araç Silindi.</string>
     <string name="are_you_sure_delete_vehicle">Aracı Silmek İstediğinizden Emin Misiniz?</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="admin_screen">Yönetici Ekranı</string>
+    <string name="user_screen">Kullanıcı Ekranı</string>
 </resources>

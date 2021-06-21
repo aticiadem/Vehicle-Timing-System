@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".view.fragment.ChoiceFragment">
+
+    <Button
+        android:id="@+id/buttonGoAdminFragment"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:text="@string/admin_screen"
+        android:textAllCaps="false"
+        android:background="@drawable/button_background"/>
+
+    <Button
+        android:id="@+id/buttonGoUserFragment"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:text="@string/user_screen"
+        android:textAllCaps="false"
+        android:background="@drawable/button_background"/>
+
+</LinearLayout>

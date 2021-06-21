@@ -5,20 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light"
-    tools:context=".view.activity.MainActivity">
+    tools:context=".view.fragment.SplashFragment">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
+        android:background="@color/yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

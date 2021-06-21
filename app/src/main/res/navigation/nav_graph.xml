@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.zafertugcu.araczamanlamasistemi.view.fragment.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_choiceFragment"
+            app:destination="@id/choiceFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.zafertugcu.araczamanlamasistemi.view.fragment.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" />
+    <fragment
+        android:id="@+id/choiceFragment"
+        android:name="com.zafertugcu.araczamanlamasistemi.view.fragment.ChoiceFragment"
+        android:label="fragment_choice"
+        tools:layout="@layout/fragment_choice" >
+        <action
+            android:id="@+id/action_choiceFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+        <action
+            android:id="@+id/action_choiceFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.zafertugcu.araczamanlamasistemi.view.fragment.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
+</navigation>
