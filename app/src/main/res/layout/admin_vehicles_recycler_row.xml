@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <TextView
+        android:id="@+id/textViewVehicleNumber"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewVehicleName"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewVehicleNumber"
+        app:layout_constraintEnd_toStartOf="@+id/textViewVehicleTime"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewVehicleNumber"
+        app:layout_constraintTop_toTopOf="@+id/textViewVehicleNumber" />
+
+    <TextView
+        android:id="@+id/textViewVehicleTime"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewVehicleNumber"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewEdit"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewVehicleName"
+        app:layout_constraintTop_toTopOf="@+id/textViewVehicleNumber" />
+
+    <ImageView
+        android:id="@+id/imageViewDelete"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/delete_vehicle"
+        android:src="@drawable/delete"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewVehicleName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewVehicleName" />
+
+    <ImageView
+        android:id="@+id/imageViewEdit"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/delete_vehicle"
+        android:src="@drawable/edit"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewVehicleName"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewDelete"
+        app:layout_constraintTop_toTopOf="@+id/textViewVehicleName" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,7 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_background"
         android:ems="10"
+        android:maxLength="15"
         android:hint="@string/vehicle_name"
         android:autofillHints="false"
         android:inputType="text" />

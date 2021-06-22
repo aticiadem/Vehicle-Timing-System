@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/vehicle_name"
         android:textSize="20sp"
+        android:maxLength="15"
         android:textColor="@color/black"
         android:background="@drawable/edit_text_background"
         android:autofillHints="false"
@@ -41,14 +42,5 @@
         android:background="@drawable/button_background"
         android:textAllCaps="true"
         android:text="@string/save_detail_changes"/>
-
-    <Button
-        android:id="@+id/buttonDeleteVehicle"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_background"
-        android:textAllCaps="true"
-        android:text="@string/delete_vehicle"/>
 
 </LinearLayout>

@@ -1,46 +1,19 @@
 package com.zafertugcu.araczamanlamasistemi.view.activity
 
-import android.app.Dialog
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.zafertugcu.araczamanlamasistemi.R
-import com.zafertugcu.araczamanlamasistemi.adapter.PastUsesAdapter
-import com.zafertugcu.araczamanlamasistemi.adapter.VehicleAdapter
+import androidx.appcompat.app.AppCompatActivity
 import com.zafertugcu.araczamanlamasistemi.databinding.ActivityMainBinding
-import com.zafertugcu.araczamanlamasistemi.databinding.DialogAddVehicleBinding
-import com.zafertugcu.araczamanlamasistemi.model.VehicleInfoModel
-import com.zafertugcu.araczamanlamasistemi.viewmodel.PastUsesViewModel
-import com.zafertugcu.araczamanlamasistemi.viewmodel.VehicleViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mVehicleViewModel: VehicleViewModel
-    private lateinit var mPastUsesViewModel: PastUsesViewModel
-    private lateinit var vehicleAdapter: VehicleAdapter
-    private lateinit var pastUsesAdapter: PastUsesAdapter
-    private var vehicleList = emptyList<VehicleInfoModel>()
-    private lateinit var sharedPref: SharedPreferences
-    private var runnable: Runnable = Runnable {  }
-    var handler: Handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
+        //supportActionBar?.hide()
         /*sharedPref = this.getSharedPreferences(getString(R.string.past_shared), Context.MODE_PRIVATE)
 
         mVehicleViewModel = ViewModelProvider(this).get(VehicleViewModel::class.java)

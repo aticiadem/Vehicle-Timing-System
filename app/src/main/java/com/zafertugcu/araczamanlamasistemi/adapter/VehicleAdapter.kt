@@ -113,7 +113,8 @@ class VehicleAdapter(
         }
 
         dialogBinding.buttonFinish.setOnClickListener {
-            if(currentData.vehicleMainTime != currentData.vehicleTime){
+            if((currentData.vehicleMainTime != currentData.vehicleTime) &&
+                    currentData.vehicleTime == 0){
                 val pastUse = PastUsesModel(
                     0,
                     dateInString,
@@ -139,7 +140,7 @@ class VehicleAdapter(
 
                 dialog.dismiss()
             } else {
-                Toast.makeText(context,R.string.data_is_not_started,Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,R.string.data_is_not_finished,Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -214,25 +215,7 @@ class VehicleAdapter(
             }
         }
 
-        dialogBinding.buttonDeleteVehicle.setOnClickListener {
-            dialog.dismiss()
-            deleteVehicle(currentData)
-        }
-
         dialog.show()
-    }
-
-    private fun deleteVehicle(currentData: VehicleInfoModel){
-        val builder = AlertDialog.Builder(context)
-        builder.setPositiveButton(R.string.yes){ _,_ ->
-            mVehicleViewModel.deleteVehicle(currentData)
-            Toast.makeText(context,R.string.vehicle_is_deleted,Toast.LENGTH_SHORT).show()
-
-        }
-        builder.setNegativeButton(R.string.no){ _,_ -> }
-        builder.setMessage(R.string.are_you_sure_delete_vehicle)
-        builder.setTitle(R.string.delete_vehicle)
-        builder.create().show()
     }
 
     private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
