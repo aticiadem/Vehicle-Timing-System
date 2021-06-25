@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/dialog_border"
     android:gravity="center"
     android:paddingTop="10dp"
     android:paddingStart="25dp"
@@ -42,21 +43,9 @@
         android:layout_marginTop="30dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginBottom="45dp"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:text="@string/reset" />
-
-    <Button
-        android:id="@+id/buttonGoDetail"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:background="@drawable/button_background"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:text="@string/go_to_detail" />
 
 </LinearLayout>

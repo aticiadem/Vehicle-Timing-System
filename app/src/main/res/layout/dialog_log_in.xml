@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/dialog_border"
     android:gravity="center"
     android:layout_width="400dp"
     android:layout_height="wrap_content">
@@ -15,11 +16,11 @@
         android:layout_marginEnd="20dp"
         android:hint="@string/password"
         android:textSize="20sp"
-        android:maxLength="4"
+        android:maxLength="8"
         android:textColor="@color/black"
         android:background="@drawable/edit_text_background"
         android:autofillHints="false"
-        android:inputType="number" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/buttonLogIn"

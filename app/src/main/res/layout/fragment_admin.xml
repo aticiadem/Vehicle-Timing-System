@@ -28,7 +28,7 @@
             android:id="@+id/textViewVehicleList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="@string/vehicle_list"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -40,9 +40,9 @@
             android:id="@+id/recyclerViewVehiclesAdmin"
             android:layout_width="match_parent"
             android:background="@drawable/border"
-            android:layout_height="300dp"
+            android:layout_height="280dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,11 +60,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewVehiclesAdmin" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPastUses"
+            android:layout_width="match_parent"
+            android:background="@drawable/border"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPastUses"/>
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/border"
@@ -72,7 +84,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPastUses">
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewPastUses">
 
             <TextView
                 android:id="@+id/textViewTotalUsage"

@@ -19,4 +19,8 @@ class VehicleRepository(private val vehicleDao: VehicleDao) {
         vehicleDao.deleteVehicle(vehicle)
     }
 
+    suspend fun deleteAllVehicle(){
+        vehicleDao.deleteAllVehicle()
+    }
+
 }

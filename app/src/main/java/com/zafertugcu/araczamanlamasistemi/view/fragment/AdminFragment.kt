@@ -1,19 +1,28 @@
 package com.zafertugcu.araczamanlamasistemi.view.fragment
 
+import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.Handler
+import android.os.Looper
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zafertugcu.araczamanlamasistemi.R
 import com.zafertugcu.araczamanlamasistemi.adapter.AdminVehicleListAdapter
+import com.zafertugcu.araczamanlamasistemi.adapter.PastUsesAdapter
+import com.zafertugcu.araczamanlamasistemi.adapter.VehicleAdapter
+import com.zafertugcu.araczamanlamasistemi.databinding.ChangePasswordBinding
+import com.zafertugcu.araczamanlamasistemi.databinding.DialogAddVehicleBinding
 import com.zafertugcu.araczamanlamasistemi.databinding.FragmentAdminBinding
+import com.zafertugcu.araczamanlamasistemi.model.VehicleInfoModel
 import com.zafertugcu.araczamanlamasistemi.view.activity.MainActivity
 import com.zafertugcu.araczamanlamasistemi.viewmodel.PastUsesViewModel
 import com.zafertugcu.araczamanlamasistemi.viewmodel.VehicleViewModel
@@ -23,8 +32,8 @@ class AdminFragment : Fragment() {
     private var _binding: FragmentAdminBinding? = null
     private val binding get() = _binding!!
     private lateinit var vehicleListAdapter: AdminVehicleListAdapter
-    //private var vehicleList = emptyList<VehicleInfoModel>()
     private lateinit var mVehicleViewModel: VehicleViewModel
+    private lateinit var pastUsesAdapter: PastUsesAdapter
     private lateinit var mPastUsesViewModel: PastUsesViewModel
     private lateinit var sharedPref: SharedPreferences
 
@@ -35,13 +44,14 @@ class AdminFragment : Fragment() {
         _binding = FragmentAdminBinding.inflate(inflater,container,false)
         val view = binding.root
         (activity as MainActivity?)?.setSupportActionBar(binding.toolbar)
+        setHasOptionsMenu(true)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedPref = requireActivity().getSharedPreferences(getString(R.string.past_shared), Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences("password", Context.MODE_PRIVATE)
 
         mVehicleViewModel = ViewModelProvider(requireActivity()).get(VehicleViewModel::class.java)
         mPastUsesViewModel = ViewModelProvider(requireActivity()).get(PastUsesViewModel::class.java)
@@ -50,9 +60,16 @@ class AdminFragment : Fragment() {
         binding.recyclerViewVehiclesAdmin.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewVehiclesAdmin.adapter = vehicleListAdapter
 
+        pastUsesAdapter = PastUsesAdapter(requireContext())
+        binding.recyclerViewPastUses.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewPastUses.adapter = pastUsesAdapter
+
         mVehicleViewModel.readAllData.observe(requireActivity(), { vehicle ->
             vehicleListAdapter.setData(vehicle)
-            //vehicleList = vehicle
+        })
+
+        mPastUsesViewModel.readAllData.observe(requireActivity(), { pastUses ->
+            pastUsesAdapter.setData(pastUses)
         })
 
         val finishedCount = sharedPref.getInt("finished",0)
@@ -70,6 +87,96 @@ class AdminFragment : Fragment() {
             deletePast()
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.vehicle_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.actionAddVehicle -> {
+                addVehicleDialog()
+            }
+            R.id.actionDeleteAll -> {
+                deleteAllData()
+            }
+            R.id.actionChangePassword -> {
+                changePasswordDialog()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun changePasswordDialog(){
+        val dialog = Dialog(requireContext())
+        val dialogPasswordBinding = ChangePasswordBinding.inflate(LayoutInflater.from(requireContext()))
+        dialog.setContentView(dialogPasswordBinding.root)
+
+        val oldPassword = sharedPref.getString("login_password","1234")
+
+        dialogPasswordBinding.buttonConfirm.setOnClickListener {
+            if(dialogPasswordBinding.editTextOldPass.text.isNotEmpty()
+                && dialogPasswordBinding.editTextNewPass.text.isNotEmpty()){
+                val newPassword = dialogPasswordBinding.editTextNewPass.text.toString()
+                if(oldPassword == dialogPasswordBinding.editTextOldPass.text.toString()){
+                    val editor = sharedPref.edit()
+                    editor.putString("login_password",newPassword)
+                    editor.apply()
+                    Toast.makeText(requireContext(),R.string.password_changed,Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(requireContext(),R.string.password_error,Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(requireContext(),R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
+            }
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+    private fun addVehicleDialog(){
+        val dialog = Dialog(requireContext())
+        val dialogBinding = DialogAddVehicleBinding
+            .inflate(LayoutInflater.from(requireContext()))
+        dialog.setContentView(dialogBinding.root)
+        dialogBinding.buttonSaveVehicle.setOnClickListener {
+            val vehicleName = dialogBinding.editTextVehicleName.text
+            val vehicleTime = dialogBinding.editTextVehicleTime.text
+            if (vehicleName.isNotEmpty() && vehicleTime.isNotEmpty()){
+                insertDataToDatabase(vehicleName.toString(), vehicleTime.toString().toInt())
+                dialog.dismiss()
+            } else {
+                Toast.makeText(requireContext(), R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
+            }
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+    private fun insertDataToDatabase(vehicleName: String, vehicleTime: Int){
+        val vehicle = VehicleInfoModel(
+            0,
+            vehicleName,
+            vehicleTime,
+            vehicleTime
+        )
+        mVehicleViewModel.addVehicle(vehicle)
+        Toast.makeText(requireContext(), R.string.save_is_successful,Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteAllData(){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton(R.string.yes){ _,_ ->
+            mVehicleViewModel.deleteAllVehicle()
+            Toast.makeText(requireContext(), R.string.all_deleted, Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton(R.string.no){ _, _ -> }
+        builder.setTitle(R.string.delete_all)
+        builder.setMessage(R.string.are_you_sure_delete_all)
+        builder.create().show()
     }
 
     private fun deletePast(){

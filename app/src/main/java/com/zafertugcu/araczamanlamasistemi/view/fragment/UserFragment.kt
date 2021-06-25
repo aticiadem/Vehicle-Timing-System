@@ -72,11 +72,7 @@ class UserFragment : Fragment() {
             pastUsesAdapter.setData(pastUses)
         })
 
-        binding.buttonClearPast.setOnClickListener {
-            deletePast()
-        }
-
-        runnable = object : Runnable{
+        runnable = object : Runnable {
             override fun run() {
                 updateDataTime(vehicleList)
 
@@ -97,51 +93,6 @@ class UserFragment : Fragment() {
         handler.post(runnable)
 
     }
-
-    private fun deletePast(){
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton(R.string.yes){ _, _ ->
-            mPastUsesViewModel.deletePastUses()
-            val editor = sharedPref.edit()
-            editor.putInt("finished",0)
-            editor.putInt("reseted",0)
-            editor.apply()
-            Toast.makeText(requireContext(), R.string.past_deleted,Toast.LENGTH_SHORT).show()
-        }
-        builder.setNegativeButton(R.string.no){ _, _ -> }
-        builder.setTitle(R.string.delete_past)
-        builder.setMessage(R.string.are_you_sure_delete_past)
-        builder.create().show()
-    }
-
-    /*private fun showAlertDialog(){
-        val dialog = Dialog(requireContext())
-        val dialogBinding = DialogAddVehicleBinding
-            .inflate(LayoutInflater.from(requireContext()))
-        dialog.setContentView(dialogBinding.root)
-        dialogBinding.buttonSaveVehicle.setOnClickListener {
-            val vehicleName = dialogBinding.editTextVehicleName.text
-            val vehicleTime = dialogBinding.editTextVehicleTime.text
-            if (vehicleName.isNotEmpty() && vehicleTime.isNotEmpty()){
-                insertDataToDatabase(vehicleName.toString(), vehicleTime.toString().toInt())
-                dialog.dismiss()
-            } else {
-                Toast.makeText(requireContext(), R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
-            }
-        }
-        dialog.show()
-    }
-
-    private fun insertDataToDatabase(vehicleName: String, vehicleTime: Int){
-        val vehicle = VehicleInfoModel(
-            0,
-            vehicleName,
-            vehicleTime,
-            vehicleTime
-        )
-        mVehicleViewModel.addVehicle(vehicle)
-        Toast.makeText(requireContext(), R.string.save_is_successful,Toast.LENGTH_SHORT).show()
-    }*/
 
     private fun updateDataTime(vehicleList: List<VehicleInfoModel>){
         for(list in vehicleList){

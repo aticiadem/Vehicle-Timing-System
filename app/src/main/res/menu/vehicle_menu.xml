@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/actionAddVehicle"
         android:title="@string/add_vehicle"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionDeleteAll"
+        android:title="@string/delete_all"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionChangePassword"
+        android:title="@string/change_password"
         app:showAsAction="never" />
 
 </menu>

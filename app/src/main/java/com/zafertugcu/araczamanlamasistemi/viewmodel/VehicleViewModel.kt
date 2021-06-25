@@ -39,4 +39,10 @@ class VehicleViewModel(application: Application): AndroidViewModel(application) 
         }
     }
 
+    fun deleteAllVehicle(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteAllVehicle()
+        }
+    }
+
 }

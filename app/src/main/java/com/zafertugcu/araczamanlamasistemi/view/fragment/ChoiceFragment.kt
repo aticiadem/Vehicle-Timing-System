@@ -3,6 +3,8 @@ package com.zafertugcu.araczamanlamasistemi.view.fragment
 import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,7 +34,7 @@ class ChoiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedPref = requireActivity().getSharedPreferences(getString(R.string.past_shared), Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences("password", Context.MODE_PRIVATE)
 
         binding.buttonGoAdminFragment.setOnClickListener {
             showLogInDialog()
@@ -46,19 +48,24 @@ class ChoiceFragment : Fragment() {
 
     private fun showLogInDialog(){
         val dialog = Dialog(requireContext())
-        val dialogBinding = DialogLogInBinding
+        val loginBinding = DialogLogInBinding
             .inflate(LayoutInflater.from(requireContext()))
-        dialog.setContentView(dialogBinding.root)
-        dialogBinding.buttonLogIn.setOnClickListener {
-            val userPassword = dialogBinding.editTextLoginPass.text.toString().toInt()
-            val password = sharedPref.getInt("login_password",1234)
-            if (userPassword == password){
-                findNavController().navigate(R.id.action_choiceFragment_to_adminFragment)
-                dialog.dismiss()
+        dialog.setContentView(loginBinding.root)
+        loginBinding.buttonLogIn.setOnClickListener {
+            val password = sharedPref.getString("login_password","1234")
+
+            if(loginBinding.editTextLoginPass.text.isNotEmpty()){
+                if(loginBinding.editTextLoginPass.text.toString() == password){
+                    findNavController().navigate(R.id.action_choiceFragment_to_adminFragment)
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(requireContext(), R.string.password_error, Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(requireContext(), R.string.password_error, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.fill_in_the_blanks, Toast.LENGTH_SHORT).show()
             }
         }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
     }
 

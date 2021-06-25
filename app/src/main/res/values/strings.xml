@@ -11,6 +11,9 @@
     <string name="number_of_finish">Bitiş Sayısı: </string>
     <string name="add_vehicle">Araç Ekle</string>
     <string name="vehicle_name">Araç Adı</string>
+    <string name="old_pass">Eski Şifre</string>
+    <string name="new_pass">Yeni Şifre</string>
+    <string name="confirm">Onayla</string>
     <string name="vehicle_start_time">Başlangıç Süresi</string>
     <string name="save_vehicle">Aracı Kaydet</string>
     <string name="save_detail_changes">DEĞİŞİKLİKLERİ KAYDET</string>
@@ -24,6 +27,7 @@
     <string name="delete_past">Geçmişi Temizle</string>
     <string name="past_deleted">Geçmiş Temizlendi!</string>
     <string name="are_you_sure_delete_past">Geçmişteki Verileri Silmek İstediğinize Emin Misiniz?</string>
+    <string name="are_you_sure_delete_all">Tüm Araçları Silmek İstediğinize Emin Misiniz?</string>
     <string name="fill_in_the_blanks">Boşlukları Doldurunuz!</string>
     <string name="save_changes_error">Girdiler Aynı Olamaz!</string>
     <string name="save_is_successful">Kayıt Başarılı.</string>
@@ -39,4 +43,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="admin_screen">Yönetici Ekranı</string>
     <string name="user_screen">Kullanıcı Ekranı</string>
+    <string name="delete_all">Tümünü Sil</string>
+    <string name="change_password">Şifreyi Değiştir</string>
+    <string name="all_deleted">Tüm Araçlar Temizlendi.</string>
+    <string name="password_changed">Şifre Değiştirildi.</string>
+    <string name="please_start_vehicle">Süre bitmeden aracı başlatamazsınız!</string>
 </resources>

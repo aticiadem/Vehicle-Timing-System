@@ -83,16 +83,6 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonClearPast"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:textSize="20sp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/button_background"
-            android:textAllCaps="false"
-            android:text="@string/delete_past"/>
-
     </LinearLayout>
 
 </ScrollView>

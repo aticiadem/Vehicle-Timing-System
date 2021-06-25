@@ -100,16 +100,20 @@ class VehicleAdapter(
         dialog.setContentView(dialogBinding.root)
 
         dialogBinding.buttonStart.setOnClickListener {
-            val newData = VehicleInfoModel(
-                currentData.vehicleId,
-                currentData.vehicleName,
-                currentData.vehicleMainTime,
-                currentData.vehicleTime,
-                true,
-                currentData.vehicleIsFinished
-            )
-            mVehicleViewModel.updateVehicle(newData)
-            dialog.dismiss()
+            if(currentData.vehicleTime == currentData.vehicleMainTime){
+                val newData = VehicleInfoModel(
+                    currentData.vehicleId,
+                    currentData.vehicleName,
+                    currentData.vehicleMainTime,
+                    currentData.vehicleTime,
+                    true,
+                    currentData.vehicleIsFinished
+                )
+                mVehicleViewModel.updateVehicle(newData)
+                dialog.dismiss()
+            } else {
+                Toast.makeText(context,R.string.please_start_vehicle,Toast.LENGTH_SHORT).show()
+            }
         }
 
         dialogBinding.buttonFinish.setOnClickListener {
@@ -173,45 +177,6 @@ class VehicleAdapter(
                 dialog.dismiss()
             } else {
                 Toast.makeText(context,R.string.data_is_not_started,Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        dialogBinding.buttonGoDetail.setOnClickListener {
-            dialog.dismiss()
-            showDetailDialog(currentData)
-        }
-
-        dialog.show()
-    }
-
-    private fun showDetailDialog(currentData: VehicleInfoModel){
-        val dialog = Dialog(context)
-        val dialogBinding = DialogVehicleDetailBinding
-            .inflate(LayoutInflater.from(context))
-        dialog.setContentView(dialogBinding.root)
-
-        dialogBinding.editTextDetailVehicleName.setText(currentData.vehicleName)
-        dialogBinding.editTextDetailVehicleStartTime.setText(currentData.vehicleMainTime.toString())
-
-        dialogBinding.buttonSaveChanges.setOnClickListener {
-            val vehicleName = dialogBinding.editTextDetailVehicleName.text.toString()
-            val startTime = dialogBinding.editTextDetailVehicleStartTime.text.toString()
-
-            if((vehicleName == currentData.vehicleName) &&
-                startTime == currentData.vehicleMainTime.toString()){
-                Toast.makeText(context,R.string.save_changes_error,Toast.LENGTH_SHORT).show()
-            } else {
-                val newData = VehicleInfoModel(
-                    currentData.vehicleId,
-                    vehicleName,
-                    startTime.toInt(),
-                    startTime.toInt(),
-                    currentData.vehicleIsStarted,
-                    currentData.vehicleIsFinished
-                )
-                mVehicleViewModel.updateVehicle(newData)
-                Toast.makeText(context,R.string.changes_is_successful,Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
             }
         }
 
