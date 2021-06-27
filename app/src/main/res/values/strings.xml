@@ -65,5 +65,6 @@
     <string name="all_deleted">Tüm Araçlar Temizlendi.</string>
     <string name="password_changed">Şifre Değiştirildi.</string>
     <string name="please_start_vehicle">Süre bitmeden aracı başlatamazsınız!</string>
+    <string name="logo">Logo</string>
 
 </resources>
