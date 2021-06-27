@@ -1,9 +1,19 @@
-# AracZamanlamaSistemi
+# Vehicle Timing System
 
+The purpose of the application; Ensuring the timing control of the tools created by the administrator. <br>
 
+## Libraries
+- ViewBinding
+- Room Database
+- Coroutines
+- Lifecycle
+- Navigation Fragment
 
+## Images
+![Screenshot_2021-06-27-23-33-39_400x640](https://user-images.githubusercontent.com/58858983/123558782-bff25100-d7a0-11eb-9422-7ec0495aca1a.jpg)
+![Screenshot_2021-06-27-23-31-13_400x640](https://user-images.githubusercontent.com/58858983/123558780-bec12400-d7a0-11eb-838b-845927a55ae8.jpg)
 
-MIT License
+## MIT License
 
 Copyright (c) 2021 Adem ATİCİ
 
