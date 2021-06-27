@@ -102,6 +102,7 @@ class UserFragment : Fragment() {
                     list.vehicleName,
                     list.vehicleMainTime,
                     list.vehicleTime-1,
+                    list.vehicleColor,
                     list.vehicleIsStarted,
                     2
                 )
@@ -113,6 +114,7 @@ class UserFragment : Fragment() {
                     list.vehicleName,
                     list.vehicleMainTime,
                     list.vehicleTime,
+                    list.vehicleColor,
                     list.vehicleIsStarted,
                     1
                 )
@@ -124,6 +126,7 @@ class UserFragment : Fragment() {
                     list.vehicleName,
                     list.vehicleMainTime,
                     list.vehicleTime,
+                    list.vehicleColor,
                     list.vehicleIsStarted,
                     0
                 )
@@ -135,6 +138,7 @@ class UserFragment : Fragment() {
                     list.vehicleName,
                     list.vehicleMainTime,
                     list.vehicleTime,
+                    list.vehicleColor,
                     list.vehicleIsStarted,
                     1
                 )

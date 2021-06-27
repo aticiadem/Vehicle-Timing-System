@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
@@ -61,15 +62,21 @@ class AdminVehicleListAdapter(
             .inflate(LayoutInflater.from(context))
         dialog.setContentView(dialogBinding.root)
 
+        val spinnerColors: Array<String> = context.resources.getStringArray(R.array.colors)
+        val spinnerAdapter = ArrayAdapter(context,android.R.layout.simple_list_item_1,spinnerColors)
+        dialogBinding.spinner.adapter = spinnerAdapter
+
         dialogBinding.editTextDetailVehicleName.setText(currentData.vehicleName)
         dialogBinding.editTextDetailVehicleStartTime.setText(currentData.vehicleMainTime.toString())
 
         dialogBinding.buttonSaveChanges.setOnClickListener {
             val vehicleName = dialogBinding.editTextDetailVehicleName.text.toString()
             val startTime = dialogBinding.editTextDetailVehicleStartTime.text.toString()
+            val color = dialogBinding.spinner.selectedItem.toString()
 
             if ((vehicleName == currentData.vehicleName) &&
-                startTime == currentData.vehicleMainTime.toString()
+                startTime == currentData.vehicleMainTime.toString() &&
+                color == currentData.vehicleColor
             ) {
                 Toast.makeText(context, R.string.save_changes_error, Toast.LENGTH_SHORT).show()
             } else {
@@ -78,6 +85,7 @@ class AdminVehicleListAdapter(
                     vehicleName,
                     startTime.toInt(),
                     startTime.toInt(),
+                    color,
                     currentData.vehicleIsStarted,
                     currentData.vehicleIsFinished
                 )

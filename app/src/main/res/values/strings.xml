@@ -1,5 +1,22 @@
 <resources>
-    <string name="app_name">AracZamanlamaSistemi</string>
+    <string name="app_name">TİMER</string>
+
+    <string-array name="colors">
+        <item>Yeşil</item>
+        <item>Kırmızı</item>
+        <item>Sarı</item>
+        <item>Mavi</item>
+        <item>Kahverengi</item>
+        <item>Gri</item>
+        <item>Turuncu</item>
+        <item>Pembe</item>
+        <item>Mor</item>
+    </string-array>
+
+    <string name="yesil">Yeşil</string>
+    <string name="kirmizi">Yeşil</string>
+    <string name="sari">Sarı</string>
+    <string name="mavi">Mavi</string>
 
     <string name="password">Şifre</string>
     <string name="password_error">Yanlış Şifre!</string>
@@ -35,7 +52,7 @@
     <string name="finished">Bitirildi</string>
     <string name="reseted">Resetlendi</string>
     <string name="past_shared">past_shared_preferences</string>
-    <string name="data_is_not_started">Önce aracı başlatınız!</string>
+    <string name="data_is_not_started">Aracı başlatınız veya bitiriniz.</string>
     <string name="data_is_not_finished">Aracı başlatınız veya bitmesini bekleyiniz.</string>
     <string name="delete_vehicle">ARACI SİL</string>
     <string name="vehicle_is_deleted">Araç Silindi.</string>
@@ -48,4 +65,5 @@
     <string name="all_deleted">Tüm Araçlar Temizlendi.</string>
     <string name="password_changed">Şifre Değiştirildi.</string>
     <string name="please_start_vehicle">Süre bitmeden aracı başlatamazsınız!</string>
+
 </resources>

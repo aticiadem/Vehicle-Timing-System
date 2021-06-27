@@ -9,10 +9,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zafertugcu.araczamanlamasistemi.R
@@ -36,6 +39,8 @@ class AdminFragment : Fragment() {
     private lateinit var pastUsesAdapter: PastUsesAdapter
     private lateinit var mPastUsesViewModel: PastUsesViewModel
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var sharedPrefTimer: SharedPreferences
+    private lateinit var spinnerColors: Array<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +57,8 @@ class AdminFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sharedPref = requireActivity().getSharedPreferences("password", Context.MODE_PRIVATE)
+        sharedPrefTimer = requireActivity().getSharedPreferences(getString(R.string.past_shared), Context.MODE_PRIVATE)
+        spinnerColors = resources.getStringArray(R.array.colors)
 
         mVehicleViewModel = ViewModelProvider(requireActivity()).get(VehicleViewModel::class.java)
         mPastUsesViewModel = ViewModelProvider(requireActivity()).get(PastUsesViewModel::class.java)
@@ -72,8 +79,8 @@ class AdminFragment : Fragment() {
             pastUsesAdapter.setData(pastUses)
         })
 
-        val finishedCount = sharedPref.getInt("finished",0)
-        val resetedCount = sharedPref.getInt("reseted",0)
+        val finishedCount = sharedPrefTimer.getInt("finished",0)
+        val resetedCount = sharedPrefTimer.getInt("reseted",0)
 
         val finished = "Bitiş Sayısı: $finishedCount"
         val reseted = "Reset Sayısı: $resetedCount"
@@ -142,11 +149,14 @@ class AdminFragment : Fragment() {
         val dialogBinding = DialogAddVehicleBinding
             .inflate(LayoutInflater.from(requireContext()))
         dialog.setContentView(dialogBinding.root)
+        val spinnerAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1,spinnerColors)
+        dialogBinding.spinner.adapter = spinnerAdapter
         dialogBinding.buttonSaveVehicle.setOnClickListener {
             val vehicleName = dialogBinding.editTextVehicleName.text
             val vehicleTime = dialogBinding.editTextVehicleTime.text
             if (vehicleName.isNotEmpty() && vehicleTime.isNotEmpty()){
-                insertDataToDatabase(vehicleName.toString(), vehicleTime.toString().toInt())
+                val color = dialogBinding.spinner.selectedItem.toString()
+                insertDataToDatabase(vehicleName.toString(), vehicleTime.toString().toInt(),color)
                 dialog.dismiss()
             } else {
                 Toast.makeText(requireContext(), R.string.fill_in_the_blanks,Toast.LENGTH_SHORT).show()
@@ -156,12 +166,15 @@ class AdminFragment : Fragment() {
         dialog.show()
     }
 
-    private fun insertDataToDatabase(vehicleName: String, vehicleTime: Int){
+    private fun insertDataToDatabase(vehicleName: String, vehicleTime: Int, vehicleColor: String){
         val vehicle = VehicleInfoModel(
             0,
             vehicleName,
             vehicleTime,
-            vehicleTime
+            vehicleTime,
+            vehicleColor,
+            false,
+            2
         )
         mVehicleViewModel.addVehicle(vehicle)
         Toast.makeText(requireContext(), R.string.save_is_successful,Toast.LENGTH_SHORT).show()
@@ -183,13 +196,13 @@ class AdminFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(R.string.yes){ _, _ ->
             mPastUsesViewModel.deletePastUses()
-            val editor = sharedPref.edit()
+            val editor = sharedPrefTimer.edit()
             editor.putInt("finished",0)
             editor.putInt("reseted",0)
             editor.apply()
 
-            val finishedCount = sharedPref.getInt("finished",0)
-            val resetedCount = sharedPref.getInt("reseted",0)
+            val finishedCount = sharedPrefTimer.getInt("finished",0)
+            val resetedCount = sharedPrefTimer.getInt("reseted",0)
 
             val finished = "Bitiş Sayısı: $finishedCount"
             val reseted = "Reset Sayısı: $resetedCount"

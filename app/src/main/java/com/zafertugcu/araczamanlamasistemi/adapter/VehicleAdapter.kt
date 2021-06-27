@@ -3,16 +3,16 @@ package com.zafertugcu.araczamanlamasistemi.adapter
 import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zafertugcu.araczamanlamasistemi.R
 import com.zafertugcu.araczamanlamasistemi.databinding.DialogVehicleClickBinding
-import com.zafertugcu.araczamanlamasistemi.databinding.DialogVehicleDetailBinding
 import com.zafertugcu.araczamanlamasistemi.databinding.VehicleRecyclerRowBinding
 import com.zafertugcu.araczamanlamasistemi.model.PastUsesModel
 import com.zafertugcu.araczamanlamasistemi.model.VehicleInfoModel
@@ -43,37 +43,37 @@ class VehicleAdapter(
         holder.itemBinding.textViewNumber.text = currentItem.vehicleName
         holder.itemBinding.textViewTime.text = currentItem.vehicleTime.toString()
 
-        when (currentItem.vehicleTime) {
-            in 0..50 -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red))
+        when(currentItem.vehicleColor){
+            "Yeşil" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.green_for_string))
             }
-            in 51..100 -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red_yellow))
+            "Kırmızı" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red_for_string))
             }
-            in 101..150 -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red_yellow2))
+            "Sarı" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow_for_string))
             }
-            in 151..200 -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red_yellow3))
+            "Mavi" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.blue))
             }
-            in 201..250 -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow))
+            "Kahverengi" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.brown))
             }
-            in 251..300 -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow_green))
+            "Gri" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.gray_for_string))
             }
-            in 301..350 -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow_green2))
+            "Turuncu" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.orange))
             }
-            in 351..400 -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow_green3))
+            "Pembe" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.pink))
             }
-            else -> {
-                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.green))
+            "Mor" -> {
+                holder.itemBinding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.purple))
             }
         }
 
-        changeColor(currentItem.vehicleIsFinished, holder.itemBinding.cardView)
+        changeColor(currentItem.vehicleIsFinished, holder.itemBinding.cardView,currentItem)
 
         holder.itemBinding.cardView.setOnClickListener{
             showAlertDialog(currentItem)
@@ -106,6 +106,7 @@ class VehicleAdapter(
                     currentData.vehicleName,
                     currentData.vehicleMainTime,
                     currentData.vehicleTime,
+                    currentData.vehicleColor,
                     true,
                     currentData.vehicleIsFinished
                 )
@@ -131,6 +132,7 @@ class VehicleAdapter(
                     currentData.vehicleName,
                     currentData.vehicleMainTime,
                     currentData.vehicleMainTime,
+                    currentData.vehicleColor,
                     false,
                     2
                 )
@@ -149,7 +151,8 @@ class VehicleAdapter(
         }
 
         dialogBinding.buttonReset.setOnClickListener {
-            if(currentData.vehicleMainTime != currentData.vehicleTime){
+            if(currentData.vehicleMainTime != currentData.vehicleTime
+                && currentData.vehicleTime != 0){
                 val pastUse = PastUsesModel(
                     0,
                     dateInString,
@@ -162,6 +165,7 @@ class VehicleAdapter(
                     currentData.vehicleName,
                     currentData.vehicleMainTime,
                     currentData.vehicleMainTime,
+                    currentData.vehicleColor,
                     false,
                     2
                 )
@@ -179,7 +183,7 @@ class VehicleAdapter(
                 Toast.makeText(context,R.string.data_is_not_started,Toast.LENGTH_SHORT).show()
             }
         }
-
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
     }
 
@@ -192,11 +196,39 @@ class VehicleAdapter(
         return Calendar.getInstance().time
     }
 
-    private fun changeColor(vehicleIsFinished: Int, currentCardView: CardView){
+    private fun changeColor(vehicleIsFinished: Int, currentCardView: CardView, currentItem: VehicleInfoModel){
         if(vehicleIsFinished == 1){
             currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.black))
         } else if(vehicleIsFinished == 0){
-            currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red))
+            when(currentItem.vehicleColor){
+                "Yeşil" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.green_for_string))
+                }
+                "Kırmızı" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.red_for_string))
+                }
+                "Sarı" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.yellow_for_string))
+                }
+                "Mavi" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.blue))
+                }
+                "Kahverengi" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.brown))
+                }
+                "Gri" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.gray_for_string))
+                }
+                "Turuncu" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.orange))
+                }
+                "Pembe" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.pink))
+                }
+                "Mor" -> {
+                    currentCardView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.purple))
+                }
+            }
         }
     }
 

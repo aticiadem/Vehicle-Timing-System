@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="48dp">
 
     <TextView
         android:id="@+id/textViewVehicleNumber"
@@ -11,18 +11,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewVehicleName"
-        android:layout_width="240dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:maxLength="16"
         app:layout_constraintBottom_toBottomOf="@+id/textViewVehicleNumber"
         app:layout_constraintEnd_toStartOf="@+id/textViewVehicleTime"
         app:layout_constraintHorizontal_bias="0.5"
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewVehicleNumber"
         app:layout_constraintEnd_toStartOf="@+id/imageViewEdit"
         app:layout_constraintHorizontal_bias="0.5"

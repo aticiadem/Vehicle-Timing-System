@@ -12,6 +12,16 @@
     <color name="gray">#858585</color>
     <color name="gray_dark">#494949</color>
 
+    <color name="red_for_string">#FF0000</color>
+    <color name="green_for_string">#00FF00</color>
+    <color name="yellow_for_string">#FFFF00</color>
+    <color name="blue">#0000FF</color>
+    <color name="brown">#A52A2A</color>
+    <color name="gray_for_string">#808080</color>
+    <color name="orange">#FFA500</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="purple">#6a0dad</color>
+
     <color name="red">#FF0000</color>
     <color name="red_yellow">#FF450B</color>
     <color name="red_yellow2">#FF871B</color>

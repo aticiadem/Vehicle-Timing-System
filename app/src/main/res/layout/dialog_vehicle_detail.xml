@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/dialog_border"
     android:gravity="center"
     android:paddingTop="40dp"
     android:paddingBottom="40dp"
@@ -16,7 +17,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/vehicle_name"
         android:textSize="20sp"
-        android:maxLength="15"
+        android:maxLength="16"
         android:textColor="@color/black"
         android:background="@drawable/edit_text_background"
         android:autofillHints="false"
@@ -29,16 +30,24 @@
         android:layout_marginTop="20dp"
         android:hint="@string/vehicle_start_time"
         android:textSize="20sp"
+        android:maxLength="4"
         android:textColor="@color/black"
         android:background="@drawable/edit_text_background"
         android:autofillHints="false"
         android:inputType="number" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/buttonSaveChanges"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:textSize="16sp"
         android:background="@drawable/button_background"
         android:textAllCaps="true"
         android:text="@string/save_detail_changes"/>

@@ -24,31 +24,38 @@
 
     <EditText
         android:id="@+id/editTextVehicleName"
-        android:layout_width="220dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_background"
         android:ems="10"
-        android:maxLength="15"
+        android:maxLength="16"
         android:hint="@string/vehicle_name"
         android:autofillHints="false"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextVehicleTime"
-        android:layout_width="220dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:background="@drawable/edit_text_background"
         android:ems="10"
+        android:maxLength="4"
         android:hint="@string/vehicle_start_time"
         android:autofillHints="false"
         android:inputType="number" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp" />
+
     <Button
         android:id="@+id/buttonSaveVehicle"
         android:background="@drawable/button_background"
-        android:layout_width="220dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="20dp"
