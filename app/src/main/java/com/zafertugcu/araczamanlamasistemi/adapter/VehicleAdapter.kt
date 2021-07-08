@@ -108,7 +108,8 @@ class VehicleAdapter(
                     currentData.vehicleTime,
                     currentData.vehicleColor,
                     true,
-                    currentData.vehicleIsFinished
+                    currentData.vehicleIsFinished,
+                    currentData.vehicleFinishText
                 )
                 mVehicleViewModel.updateVehicle(newData)
                 dialog.dismiss()
@@ -120,29 +121,18 @@ class VehicleAdapter(
         dialogBinding.buttonFinish.setOnClickListener {
             if((currentData.vehicleMainTime != currentData.vehicleTime) &&
                     currentData.vehicleTime == 0){
-                val pastUse = PastUsesModel(
-                    0,
-                    dateInString,
-                    currentData.vehicleName,
-                    0
-                )
-                mPastUsesViewModel.addPastUse(pastUse)
                 val newData = VehicleInfoModel(
                     currentData.vehicleId,
-                    currentData.vehicleName,
+                    currentData.vehicleFinishText,
                     currentData.vehicleMainTime,
                     currentData.vehicleMainTime,
                     currentData.vehicleColor,
                     false,
-                    2
+                    2,
+                    currentData.vehicleName,
+                    false
                 )
                 mVehicleViewModel.updateVehicle(newData)
-
-                val oldValue = sharedPref.getInt("finished",0)
-                val newValue = oldValue + 1
-                val editor = sharedPref.edit()
-                editor.putInt("finished",newValue)
-                editor.apply()
 
                 dialog.dismiss()
             } else {
@@ -167,7 +157,9 @@ class VehicleAdapter(
                     currentData.vehicleMainTime,
                     currentData.vehicleColor,
                     false,
-                    2
+                    2,
+                    currentData.vehicleFinishText,
+                    currentData.vehicleAdded
                 )
                 mVehicleViewModel.updateVehicle(newData)
 
@@ -183,6 +175,7 @@ class VehicleAdapter(
                 Toast.makeText(context,R.string.data_is_not_started,Toast.LENGTH_SHORT).show()
             }
         }
+
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
     }

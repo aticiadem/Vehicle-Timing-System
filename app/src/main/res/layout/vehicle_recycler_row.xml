@@ -11,7 +11,6 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        app:cardBackgroundColor="@color/yellow"
         app:cardCornerRadius="20dp"
         android:layout_width="180dp"
         android:layout_height="180dp">
@@ -29,7 +28,8 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="72sp" />
+                android:textSize="72sp"
+                android:maxLength="4"/>
 
         </LinearLayout>
 
@@ -41,9 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
-        android:maxLength="16"
+        android:maxLength="10"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>

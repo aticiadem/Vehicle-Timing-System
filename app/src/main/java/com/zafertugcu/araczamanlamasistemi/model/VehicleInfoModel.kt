@@ -12,5 +12,7 @@ data class VehicleInfoModel(
     var vehicleTime: Int,
     var vehicleColor: String,
     var vehicleIsStarted: Boolean = false,
-    var vehicleIsFinished: Int = 2
+    var vehicleIsFinished: Int = 2,
+    var vehicleFinishText: String,
+    var vehicleAdded: Boolean = false,
 )

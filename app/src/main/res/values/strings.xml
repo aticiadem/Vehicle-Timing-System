@@ -66,5 +66,7 @@
     <string name="password_changed">Şifre Değiştirildi.</string>
     <string name="please_start_vehicle">Süre bitmeden aracı başlatamazsınız!</string>
     <string name="logo">Logo</string>
+    <string name="finished_vehicles">Biten Araç</string>
+    <string name="okay">Tamam</string>
 
 </resources>

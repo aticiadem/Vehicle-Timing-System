@@ -13,6 +13,13 @@ interface VehicleDao {
     @Query("SELECT * FROM vehicle_table ORDER BY vehicleId ASC")
     fun readAllData(): LiveData<List<VehicleInfoModel>>
 
+    /*@Query("SELECT * FROM vehicle_table WHERE vehicleAdded == :added AND vehicleTime == :time AND vehicleIsFinished == :isFinished")
+    fun readFinishedData(
+        added: Boolean = false,
+        time: Int = 0,
+        isFinished: Int = 2
+    ): LiveData<List<VehicleInfoModel>>*/
+
     @Update
     suspend fun updateVehicle(vehicle: VehicleInfoModel)
 

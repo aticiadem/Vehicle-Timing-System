@@ -174,7 +174,9 @@ class AdminFragment : Fragment() {
             vehicleTime,
             vehicleColor,
             false,
-            2
+            2,
+            "Bitti",
+            false
         )
         mVehicleViewModel.addVehicle(vehicle)
         Toast.makeText(requireContext(), R.string.save_is_successful,Toast.LENGTH_SHORT).show()

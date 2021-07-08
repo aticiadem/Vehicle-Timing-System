@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_border"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:gravity="center"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textViewTitleFinishedVehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/finished_vehicles"
+        android:textColor="@color/black"
+        android:textSize="28sp"/>
+
+    <TextView
+        android:id="@+id/textViewFinishedVehicle"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonOK"
+        android:background="@drawable/button_background"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="16sp"
+        android:text="@string/okay" />
+
+</LinearLayout>

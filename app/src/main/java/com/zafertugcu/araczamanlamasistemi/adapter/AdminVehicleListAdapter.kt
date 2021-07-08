@@ -87,7 +87,8 @@ class AdminVehicleListAdapter(
                     startTime.toInt(),
                     color,
                     currentData.vehicleIsStarted,
-                    currentData.vehicleIsFinished
+                    currentData.vehicleIsFinished,
+                    currentData.vehicleFinishText
                 )
                 mVehicleViewModel.updateVehicle(newData)
                 Toast.makeText(context, R.string.changes_is_successful, Toast.LENGTH_SHORT).show()

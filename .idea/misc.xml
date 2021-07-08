@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout-land/fragment_admin.xml" value="0.4144316730523627" />
+        <entry key="app/src/main/res/layout-land/fragment_user.xml" value="0.1954861111111111" />
+        <entry key="app/src/main/res/layout-mdpi/fragment_user.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout-xhdpi/fragment_user.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout-xxhdpi/fragment_user.xml" value="0.31689453125" />
+        <entry key="app/src/main/res/layout-xxxhdpi/fragment_user.xml" value="0.31689453125" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/admin_vehicles_recycler_row.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/change_password.xml" value="0.22534722222222223" />
+        <entry key="app/src/main/res/layout/dialog_add_vehicle.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/dialog_finished_vehicle.xml" value="0.22534722222222223" />
+        <entry key="app/src/main/res/layout/dialog_log_in.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/dialog_vehicle_click.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/dialog_vehicle_detail.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.3236994219653179" />
+        <entry key="app/src/main/res/layout/fragment_choice.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.31689453125" />
+        <entry key="app/src/main/res/layout/past_uses_recycler_row.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/vehicle_recycler_row.xml" value="0.3380208333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

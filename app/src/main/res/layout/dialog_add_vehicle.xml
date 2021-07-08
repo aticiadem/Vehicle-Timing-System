@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/dialog_border"
     android:gravity="center"
@@ -29,7 +30,7 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_background"
         android:ems="10"
-        android:maxLength="16"
+        android:maxLength="12"
         android:hint="@string/vehicle_name"
         android:autofillHints="false"
         android:inputType="text" />
@@ -50,7 +51,8 @@
         android:id="@+id/spinner"
         android:layout_width="230dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25dp"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/buttonSaveVehicle"

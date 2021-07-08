@@ -1,31 +1,30 @@
 package com.zafertugcu.araczamanlamasistemi.view.fragment
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.zafertugcu.araczamanlamasistemi.databinding.FragmentUserBinding
-import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Handler
 import android.os.Looper
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zafertugcu.araczamanlamasistemi.R
 import com.zafertugcu.araczamanlamasistemi.adapter.PastUsesAdapter
 import com.zafertugcu.araczamanlamasistemi.adapter.VehicleAdapter
-import com.zafertugcu.araczamanlamasistemi.databinding.ActivityMainBinding
-import com.zafertugcu.araczamanlamasistemi.databinding.DialogAddVehicleBinding
+import com.zafertugcu.araczamanlamasistemi.databinding.DialogFinishedVehicleBinding
+import com.zafertugcu.araczamanlamasistemi.model.PastUsesModel
 import com.zafertugcu.araczamanlamasistemi.model.VehicleInfoModel
 import com.zafertugcu.araczamanlamasistemi.viewmodel.PastUsesViewModel
 import com.zafertugcu.araczamanlamasistemi.viewmodel.VehicleViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class UserFragment : Fragment() {
 
@@ -44,9 +43,8 @@ class UserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentUserBinding.inflate(inflater, container,false)
-        val view = binding.root
-        return view
+        _binding = FragmentUserBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,19 +102,41 @@ class UserFragment : Fragment() {
                     list.vehicleTime-1,
                     list.vehicleColor,
                     list.vehicleIsStarted,
-                    2
+                    2,
+                    list.vehicleFinishText,
+                    true
                 )
                 mVehicleViewModel.updateVehicle(currentVehicle)
             }
             if(list.vehicleIsStarted && list.vehicleTime == 0 && list.vehicleIsFinished == 2){
+                val date = getCurrentDateTime()
+                val dateInString = date.toString("dd/MM/yyyy  -  HH:mm:ss")
+                val pastUse = PastUsesModel(
+                    0,
+                    dateInString,
+                    list.vehicleName,
+                    0
+                )
+                mPastUsesViewModel.addPastUse(pastUse)
+
+                dialogFinishedVehicle(list.vehicleName)
+
+                val oldValue = sharedPref.getInt("finished",0)
+                val newValue = oldValue + 1
+                val editor = sharedPref.edit()
+                editor.putInt("finished",newValue)
+                editor.apply()
+
                 val vehicle = VehicleInfoModel(
                     list.vehicleId,
-                    list.vehicleName,
+                    list.vehicleFinishText,
                     list.vehicleMainTime,
                     list.vehicleTime,
                     list.vehicleColor,
                     list.vehicleIsStarted,
-                    1
+                    1,
+                    list.vehicleName,
+                    true
                 )
                 mVehicleViewModel.updateVehicle(vehicle)
             }
@@ -128,7 +148,9 @@ class UserFragment : Fragment() {
                     list.vehicleTime,
                     list.vehicleColor,
                     list.vehicleIsStarted,
-                    0
+                    0,
+                    list.vehicleFinishText,
+                    true
                 )
                 mVehicleViewModel.updateVehicle(vehicle)
             }
@@ -140,11 +162,81 @@ class UserFragment : Fragment() {
                     list.vehicleTime,
                     list.vehicleColor,
                     list.vehicleIsStarted,
-                    1
+                    1,
+                    list.vehicleFinishText,
+                    true
                 )
                 mVehicleViewModel.updateVehicle(vehicle)
             }
+            /*if((list.vehicleMainTime != list.vehicleTime) &&
+                list.vehicleTime == 0){
+                val date = getCurrentDateTime()
+                val dateInString = date.toString("dd/MM/yyyy  -  HH:mm:ss")
+
+                if (!list.vehicleAdded){
+                    val pastUse = PastUsesModel(
+                        0,
+                        dateInString,
+                        list.vehicleName,
+                        0
+                    )
+                    mPastUsesViewModel.addPastUse(pastUse)
+
+                    val newData = VehicleInfoModel(
+                        list.vehicleId,
+                        list.vehicleName,
+                        list.vehicleMainTime,
+                        0,
+                        list.vehicleColor,
+                        false,
+                        1,
+                        true
+                    )
+                    mVehicleViewModel.updateVehicle(newData)
+
+                    val oldValue = sharedPref.getInt("finished",0)
+                    val newValue = oldValue + 1
+                    val editor = sharedPref.edit()
+                    editor.putInt("finished",newValue)
+                    editor.apply()
+                }
+                val newData = VehicleInfoModel(
+                    list.vehicleId,
+                    list.vehicleName,
+                    list.vehicleMainTime,
+                    list.vehicleMainTime,
+                    list.vehicleColor,
+                    false,
+                    2,
+                    false
+                )
+                mVehicleViewModel.updateVehicle(newData)
+            }*/
         }
+    }
+
+    private fun dialogFinishedVehicle(name: String){
+        val dialog = Dialog(requireContext())
+        val dialogFinishedVehicleBinding = DialogFinishedVehicleBinding.inflate(LayoutInflater.from(requireContext()))
+        dialog.setContentView(dialogFinishedVehicleBinding.root)
+
+        dialogFinishedVehicleBinding.textViewFinishedVehicle.text = name
+
+        dialogFinishedVehicleBinding.buttonOK.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+    private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format,locale)
+        return formatter.format(this)
+    }
+
+    private fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
     }
 
     override fun onDestroyView() {

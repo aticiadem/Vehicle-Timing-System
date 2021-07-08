@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/dialog_border"
     android:gravity="center"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/vehicle_name"
         android:textSize="20sp"
-        android:maxLength="16"
+        android:maxLength="12"
         android:textColor="@color/black"
         android:background="@drawable/edit_text_background"
         android:autofillHints="false"
@@ -40,7 +40,8 @@
         android:id="@+id/spinner"
         android:layout_width="280dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/buttonSaveChanges"
